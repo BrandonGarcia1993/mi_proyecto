@@ -14,5 +14,19 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+
+    <!-- FlatLaf -->
+    <dependency>
+        <groupId>com.formdev</groupId>
+        <artifactId>flatlaf</artifactId>
+        <version>3.6</version>
+    </dependency>
+
+    <!-- FlatLaf extras (para más temas) -->
+    <dependency>
+        <groupId>com.formdev</groupId>
+        <artifactId>flatlaf-extras</artifactId>
+        <version>3.6</version>
+    </dependency>
   </dependencies>
 </project>

@@ -6,9 +6,9 @@ package com.pl;
  */
 public class App 
 {
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
-        System.out.println("Kino der toten!");
+    public static void main( String[] args ){
+
+        new VentanaPrincipal();
+
     }
 }

@@ -4,24 +4,29 @@ import javax.swing.*;//clase swing para componentes graficos
 import java.awt.*;//clase para usar ediciones como font en tipo y tamano de letras
 
 public class PanelInicio extends JPanel{//clase PanelInicio con extension a JPanel para crear componentes del panel
+    //creacion de atributos de la clase PanelInicio globales encapsulados
+    private JLabel lblLogo;
+    private JButton btnRegistrar, btnIngresar;
 
-    public PanelInicio(VentanaPrincipal ventana){//el panel inicio tendra como asociasion ventana principal
+    public PanelInicio(VentanaPrincipal ventana){//el panel inicio tendra como asociasion ventana principal, con palabra clave ventana para acceder a componentes o metodos de Ventana Principal
         setLayout(null);//la edicion de componentes es personalizable
 
-        //COMPONENTES
-        JLabel lblLogo = new JLabel("PLAY LOG!");//label que contiene el nombre de la aplicacion
-        JButton btnIngresar = new JButton("INGRESAR");//boton ingresar
-        JButton btnRegistrar = new JButton("REGISTRAR");//boton registrar
+        //INICIALIZAR COMPONENTES
+        lblLogo = new JLabel("PLAY LOG!");//label que contiene el nombre de la aplicacion
+        btnRegistrar = new JButton("REGISTRAR");//boton registrar
+        btnIngresar = new JButton("INGRESAR");//boton ingresar
 
-        //EDICION DE COMPONENTES
-        lblLogo.setFont(new Font("Arial", Font.BOLD,50));//edicion de las letras del nombre del logo
+        //DIMENSIONES COMPONENTES
         lblLogo.setBounds(270, 150, 320, 50);//dimensiones del label que contiene el nombre del logo
-        btnIngresar.setBounds(340, 260, 120, 30);//dimensiones de boton ingresar
         btnRegistrar.setBounds(340, 220, 120, 30);//dimensiones de boton registrar
+        btnIngresar.setBounds(340, 260, 120, 30);//dimensiones de boton ingresar
 
+        //EDICION COMPONENTES
+        lblLogo.setFont(new Font("Arial", Font.BOLD,50));//edicion de las letras del nombre del logo
+        
         //FUNCIONES DE BOTONES
-        btnIngresar.addActionListener(e ->JOptionPane.showMessageDialog(null, "Inicio exitoso!"));//funsiones de boton inicio
-        btnRegistrar.addActionListener(e ->JOptionPane.showMessageDialog(null, "Registro exitoso!"));//funsiones de boton registrar
+        btnIngresar.addActionListener(e -> ventana.cambiarPanel("ingresar"));//funsion: nos llevara a panel ingresar
+        btnRegistrar.addActionListener(e -> ventana.cambiarPanel("registrar"));//funsion: nos llevara a panel registro
 
         //AGREGAR COMPONENTES
         add(lblLogo);//agregamos el label logo

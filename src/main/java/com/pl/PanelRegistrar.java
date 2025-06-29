@@ -3,14 +3,10 @@ package com.pl;
 import javax.swing.*;//clase swing para componentes graficos
 import java.awt.*;//clase para usar ediciones como font en tipo y tamano de letras
 import java.time.LocalDate;//clase para guardar formato fecha
-//librerias para conectar base de datos
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 //librerias para formatos de fecha, dependencia Lgooddatepicker
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
-import com.pl.dao.ConexionBD;
+import com.pl.dao.UsuarioDAO;//importamos clase usuarioDAO ya que necesitaremos acceder a ella para enviar los datos
 
 public class PanelRegistrar extends JPanel{//clase PanelRegistrar con extension a JPanel para crear componentes del panel
     //creacion de atributos de la clase PanelRegistrar globales encapsulados
@@ -59,42 +55,33 @@ public class PanelRegistrar extends JPanel{//clase PanelRegistrar con extension 
 
         //FUNCIONES COMPONENTES
         btnVolver.addActionListener(e -> ventana.cambiarPanel("inicio"));//funcion: nos regresara al panel inicio
-        btnRegistrar.addActionListener(e ->{//funcion: agregara los datos solicitados al usuario a la base de datos
+
+        btnRegistrar.addActionListener(e ->{//funcion: agregar un nuevo usuario
             //primero: extraer los datos ingresados por el usuario
             String nombre = txtNombre.getText().trim();
             String correo = txtCorreo.getText().trim();
             String contrasena = txtContrasena.getText().trim();
-            LocalDate fechaNacimineto = datePickerNacimiento.getDate();
+            LocalDate fechaNacimiento = datePickerNacimiento.getDate();
 
             //segundo: validar que los campos no esten vacios
-            if (nombre.isEmpty() || correo.isEmpty() || contrasena.isEmpty() || fechaNacimineto == null) {
+            if (nombre.isEmpty() || correo.isEmpty() || contrasena.isEmpty() || fechaNacimiento == null) {
                 JOptionPane.showMessageDialog(null, "Por favor complete todos los campos.");
                 return;
             }
 
-            //tercero: realizar la consulta a la base de datos, para agregar los datos
-            try(Connection conn = ConexionBD.obtenerConexion()) {
-                String sql = "INSERT INTO usuarios (nombre, correo, contrasena, fecha_nacimiento) VALUES (?, ?, ?, ?)";
-                PreparedStatement ps = conn.prepareStatement(sql);
-                ps.setString(1, nombre);
-                ps.setString(2, correo);
-                ps.setString(3, contrasena);
-                ps.setDate(4, java.sql.Date.valueOf(fechaNacimineto));
-                ps.executeUpdate();
+            Usuario usuario = new Usuario(nombre, correo, contrasena, fechaNacimiento);//craeamos al nuevo usuario 
+            boolean exito = UsuarioDAO.guardar(usuario);//mandamos un boolean true a clase usuarioDAO para verificarlo y guardarlo en la base de datos
 
-                JOptionPane.showMessageDialog(null, "Usuario registrado correctamente.");//mensaje de confirmacion, si todo esta bien con la base de datos
-
-                //cuarto: limpiara los campos, para que no se muestre al ingresar de nuevo al panel registro
+            //si exito es true, nos guardara al usuario exitosamente y vaciara los campos, luego nos enviara a la ventana inicio
+            if (exito) {
+                JOptionPane.showMessageDialog(null, "Usuario registrado correctamente.");
                 txtNombre.setText("");
                 txtCorreo.setText("");
                 txtContrasena.setText("");
                 datePickerNacimiento.clear();
-
-                //quinto: ultimo paso, nos regresara al panel inicio, para que podamos ingresar por medio de los datos ingresados y confirmados
                 ventana.cambiarPanel("inicio");
-
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Error al registrar usuario: " + ex.getMessage());//en caso que ocurra un error, nos mostrara un mensaje al momento de agregar un usuario
+            } else {//de ser dalse nos enviara mensaje que no se guardo el usuario correctamente
+                JOptionPane.showMessageDialog(null, "Error al registrar usuario.");
             }
         });
 

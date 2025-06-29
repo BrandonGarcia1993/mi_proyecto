@@ -11,12 +11,22 @@ public class Usuario {//creamos la clase Usuario, plantilla para crear un usuari
     private LocalDate fechaNacimiento;
 
     //CONSTRUCTOR USUARIO
-    public Usuario(String nombre, String correo, String contrasena, LocalDate fechaNacimiento){//creamos constructor de la clase usuario, con parametros: nombre
+    //sin id util al crear un nuevo usuario
+    public Usuario(String nombre, String correo, String contrasena, LocalDate fechaNacimiento){
         this.nombre = nombre;//inicializamos nombre
         this.correo = correo;//inicializamos correo
         this.contrasena = contrasena;//inicializamos contrasena
         this.fechaNacimiento = fechaNacimiento;//inicializamos fecha nacimiento
     }
+
+    //con id util si recuperas desde la base de datos
+    public Usuario(int id, String nombre, String correo, String contrasena, LocalDate fechaNacimiento){
+        this.nombre = nombre;//inicializamos nombre
+        this.correo = correo;//inicializamos correo
+        this.contrasena = contrasena;//inicializamos contrasena
+        this.fechaNacimiento = fechaNacimiento;//inicializamos fecha nacimiento
+    }
+
 
     //METODOS DE LA CLASE USUARIO
 
@@ -59,6 +69,11 @@ public class Usuario {//creamos la clase Usuario, plantilla para crear un usuari
 
     public LocalDate getFechaNacimiento(){
         return fechaNacimiento;
+    }
+
+    //metodo para obtener si es mayor o menor de edad
+    public boolean esMayorDeEdad(){
+        return fechaNacimiento != null && fechaNacimiento.isBefore(LocalDate.now().minusYears(18));
     }
 
 }

@@ -1,6 +1,9 @@
 package com.pl;
 
 import javax.swing.*;//clase swing para componentes graficos
+
+import com.pl.dao.UsuarioDAO;
+
 import java.awt.*;//clase para usar ediciones como font en tipo y tamano de letras
 
 public class PanelIngresar extends JPanel{//clase PanelIngreso con extension a JPanel para crear componentes del panel
@@ -35,7 +38,25 @@ public class PanelIngresar extends JPanel{//clase PanelIngreso con extension a J
 
         //FUNCIONES DE COMPONENTES
         btnVolver.addActionListener(e -> ventana.cambiarPanel("inicio"));//funsion: nos regresara al panel inicio
-        btnIngresar.addActionListener(e -> ventana.cambiarPanel("playlog"));//funsion: nos lleva al panel playlog
+
+        btnIngresar.addActionListener(e ->{//funcion: revisara si el nombre ingresado ya se encuentra registrado
+            String nombre = txtNombre.getText().trim();
+
+            //segundo: validar que los campos no esten vacios
+            if(nombre.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Por favor complete todos los campos.");
+                return;
+            }
+
+            Usuario usuario = UsuarioDAO.buscarPorNombre(nombre);//traera el usuario segun el nombre a la clase usuario
+
+            if(usuario != null){//si el usuario existe nos mostrara un mensaje de bienvenida y nos enviara al panel play log
+                JOptionPane.showMessageDialog(null, "Bienvenido, " + usuario.getNombre() + "!");
+                ventana.cambiarPanel("playlog");
+            }else{//de no exisrtir nos dira que los datos son incorrectos
+                JOptionPane.showMessageDialog(null, "Nombre incorrecto.");
+            }
+        });
 
         //AGREGAR COMPONENTES
         add(lblLogo);//agregamos label logo

@@ -9,12 +9,7 @@ public class ConexionBD {
     private static final String USUARIO = "root";
     private static final String CONTRASEÑA = "kino1993";
 
-    public static Connection obtenerConexion() {
-        try {
-            return DriverManager.getConnection(URL, USUARIO, CONTRASEÑA);
-        } catch (SQLException e) {
-            System.out.println("Error de conexión: " + e.getMessage());
-            return null;
-        }
+    public static Connection obtenerConexion() throws SQLException {
+        return DriverManager.getConnection(URL, USUARIO, CONTRASEÑA);
     }
 }

@@ -52,6 +52,8 @@ public class PanelRegistrar extends JPanel{//clase PanelRegistrar con extension 
 
         //EDICION COMPONENTES
         lblLogo.setFont(new Font("Arial", Font.BOLD,50));//edicion de las letras del nombre del logo
+        btnRegistrar.setCursor(new Cursor(Cursor.HAND_CURSOR));//el cursor adaptara una forma de mano
+        btnVolver.setCursor(new Cursor(Cursor.HAND_CURSOR));//el cursor adaptara una forma de mano
 
         //FUNCIONES COMPONENTES
         btnVolver.addActionListener(e -> ventana.cambiarPanel("inicio"));//funcion: nos regresara al panel inicio

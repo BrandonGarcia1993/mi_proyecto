@@ -35,6 +35,8 @@ public class PanelIngresar extends JPanel{//clase PanelIngreso con extension a J
 
         //EDICION DE COMPONENTES
         lblLogo.setFont(new Font("Arial", Font.BOLD,50));//edicion de las letras del nombre del logo
+        btnIngresar.setCursor(new Cursor(Cursor.HAND_CURSOR));//el cursor adaptara una forma de mano
+        btnVolver.setCursor(new Cursor(Cursor.HAND_CURSOR));//el cursor adaptara una forma de mano
 
         //FUNCIONES DE COMPONENTES
         btnVolver.addActionListener(e -> ventana.cambiarPanel("inicio"));//funsion: nos regresara al panel inicio

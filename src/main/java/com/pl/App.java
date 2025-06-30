@@ -11,7 +11,7 @@ public class App
 
         //codigo para que usemos el tema FLATLAF dentro de un try_catch
         try {
-            UIManager.setLookAndFeel(new FlatDarculaLaf());
+            UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }

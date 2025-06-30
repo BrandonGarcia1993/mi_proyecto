@@ -15,14 +15,31 @@ public class PanelInicio extends JPanel{//clase PanelInicio con extension a JPan
         lblLogo = new JLabel("PLAY LOG!");//label que contiene el nombre de la aplicacion
         btnRegistrar = new JButton("REGISTRAR");//boton registrar
         btnIngresar = new JButton("INGRESAR");//boton ingresar
+        //inicializamos icono para BOTON REGISTRAR
+        ImageIcon originalIconR = new ImageIcon(getClass().getResource("/recursos/fingerprint.png"));//guardamos la imagen segun su hubicacion
+        Image imagenEscaladaR = originalIconR.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);//escalamos el icono a un tamano mas adecuado
+        ImageIcon iconoEscaladoR = new ImageIcon(imagenEscaladaR);//guardamos el nuevo icono ya escalado
+        //inicializamos icono para BOTON INGRESAR
+        ImageIcon originalIconI = new ImageIcon(getClass().getResource("/recursos/footprint.png"));//guardamos la imagen segun su hubicacion
+        Image imagenEscaladaI = originalIconI.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);//escalamos el icono a un tamano mas adecuado
+        ImageIcon iconoEscaladoI = new ImageIcon(imagenEscaladaI);//guardamos el nuevo icono ya escalado
 
         //DIMENSIONES COMPONENTES
         lblLogo.setBounds(270, 150, 320, 50);//dimensiones del label que contiene el nombre del logo
-        btnRegistrar.setBounds(340, 220, 120, 30);//dimensiones de boton registrar
-        btnIngresar.setBounds(340, 260, 120, 30);//dimensiones de boton ingresar
+        btnRegistrar.setBounds(320, 220, 180, 45);//dimensiones de boton registrar
+        btnIngresar.setBounds(320, 290, 180, 45);//dimensiones de boton ingresar
 
         //EDICION COMPONENTES
         lblLogo.setFont(new Font("Arial", Font.BOLD,50));//edicion de las letras del nombre del logo
+        btnRegistrar.setCursor(new Cursor(Cursor.HAND_CURSOR));//el cursor adaptara una forma de mano
+        btnRegistrar.setIcon(iconoEscaladoR);//agregamos icono para boton registrar
+        btnRegistrar.setHorizontalTextPosition(SwingConstants.RIGHT); // texto a la derecha del ícono
+        btnRegistrar.setIconTextGap(10); // espacio entre ícono y texto
+
+        btnIngresar.setCursor(new Cursor(Cursor.HAND_CURSOR));//el cursor adaptara una forma de mano
+        btnIngresar.setIcon(iconoEscaladoI);//agregamos icono para boton registrar
+        btnIngresar.setHorizontalTextPosition(SwingConstants.RIGHT); // texto a la derecha del ícono
+        btnIngresar.setIconTextGap(10); // espacio entre ícono y texto
         
         //FUNCIONES DE BOTONES
         btnIngresar.addActionListener(e -> ventana.cambiarPanel("ingresar"));//funsion: nos llevara a panel ingresar

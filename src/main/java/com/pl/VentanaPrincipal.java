@@ -8,16 +8,17 @@ public class VentanaPrincipal extends JFrame{//clase Ventana principal con exten
     //creacion de atributos de la clase Ventana Principal globales encapsulados
     private JPanel PanelContenedor;
     private CardLayout layout; 
-
-    private JPanel PanelInicio, PanelIngresar, PanelPlayLog, PanelRegistrar;
     
     public VentanaPrincipal(){//constructor de la Ventana Principal
-
+        
         super("PlayLog");//titulo de nuestra Ventana Principal
         setSize(800,600);//Dimensiones 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//accion al seleccionar el boton x cerrar
         setLocationRelativeTo(null);//metodo que colocara al centro de la pantalla la Ventana Principal
         setResizable(false);//Metodo para  negar la edicion al usuario de la ventana
+
+        // Fondo oscuro para la ventana
+        getContentPane().setBackground(new Color(67, 81, 196));
 
         // Establecer ícono en la ventana principal
         URL iconURL = getClass().getResource("/recursos/poland.png");//busca el icono en el classpath
@@ -30,18 +31,14 @@ public class VentanaPrincipal extends JFrame{//clase Ventana principal con exten
 
         layout = new CardLayout();//inicializamos el cardlayout que guardara y organizara los paneles
         PanelContenedor = new JPanel(layout);//creamos el panel general, que tendra el layot para agregar los paneles
+        PanelContenedor.setOpaque(false); // ¡Importante! Para ver el fondo del JFrame
         
-        //CREAMOS PANELES
-        PanelInicio = new PanelInicio(this);//creamos el panel inicio
-        PanelIngresar =  new PanelIngresar(this);//creamos el panel ingresar
-        PanelPlayLog = new PanelPlayLog(this);//creamos el panel Play Log
-        PanelRegistrar = new PanelRegistrar(this);//creamos el panel registrar
-
-        //AGREGAMOS PANELES AL CONETENEDOR
-        PanelContenedor.add(PanelInicio,"inicio");//agregamos el panel inicio al panel contenedor
-        PanelContenedor.add(PanelIngresar, "ingresar");//agregamos el panel ingreso al panel contenedor
-        PanelContenedor.add(PanelPlayLog,"playlog");//agregamos el panel playlog al panel contenedor
-        PanelContenedor.add(PanelRegistrar,"registrar");//agregamos el panel registrar al panel contenedor
+        
+        //CREAMOS Y AGREGAMOS PANELES AL CONETENEDOR
+        PanelContenedor.add(new PanelInicio(this),"inicio");//agregamos el panel inicio al panel contenedor
+        PanelContenedor.add(new PanelIngresar(this), "ingresar");//agregamos el panel ingreso al panel contenedor
+        PanelContenedor.add(new PanelPlayLog(this),"playlog");//agregamos el panel playlog al panel contenedor
+        PanelContenedor.add(new PanelRegistrar(this),"registrar");//agregamos el panel registrar al panel contenedor
 
         //ANADIMOS COMPONENTES A LA VENTANA PRINCIPAL
         add(PanelContenedor);//agregamos el panel contenedor

@@ -8,35 +8,51 @@ import java.awt.*;//clase para usar ediciones como font en tipo y tamano de letr
 
 public class PanelIngresar extends JPanel{//clase PanelIngreso con extension a JPanel para crear componentes del panel
     //creacion de atributos de la clase PanelIngreso globales encapsulados
-    private JLabel lblNombre, lblContra, lblLogo;
+    private JLabel lblNombre, lblContra, lblLogo, lblMaster;
     private JTextField txtNombre, txtContra;
     private JButton btnIngresar, btnVolver;
+    private JPanel cortina;
 
     public PanelIngresar(VentanaPrincipal ventana){//el panel ingreso tendra como asociasion ventana principal, con palabra clave ventana para acceder a componentes o metodos de Ventana Principal
         setLayout(null);//la edicion de componentes es personalizable
+        setOpaque(false); // para que el fondo del JFrame se vea
 
-        //INICIALIZAR COMPONENTES
-        lblLogo = new JLabel("PLAY LOG!");//label que contiene el nombre de la aplicacion
+        //creacion de CORTINA
+        cortina = new JPanel(null);
+        cortina.setBounds(200, 0, 400, 600);// dimensiones de la cortina
+        cortina.setBackground(Color.WHITE); // Cortina blanca
+
+        //creacion del logo texto PLAY LOG!
+        lblLogo = new JLabel("PLAY LOG!");//label que contiene el nombre de la aplicacio
+        lblLogo.setBounds(350, 240, 320, 50);//dimensiones del label que contiene el nombre del logo
+        lblLogo.setFont(new Font("Arial", Font.BOLD,20));//edicion de las letras del nombre del logo
+
+        //creacion icono MASTER
+        ImageIcon master = new ImageIcon(getClass().getResource("/recursos/logoMaster.png"));
+        Image masterEscalada = master.getImage().getScaledInstance(220, 270, Image.SCALE_SMOOTH);
+        ImageIcon masterFinal = new ImageIcon(masterEscalada);
+        lblMaster = new JLabel(masterFinal);
+        lblMaster.setBounds(95,20, 220, 270);
+
         lblNombre = new JLabel("Nombre");//label nombre
-        lblContra = new JLabel("Contraseña");//label contra
+        lblNombre.setBounds(285, 300, 120, 30);//dimensiones label nombre
+
         txtNombre = new JTextField();//texto para nombre
+        txtNombre.setBounds(365, 300, 160, 30);//dimensiones texto para nombre
+
+        lblContra = new JLabel("Contraseña");//label contra
+        lblContra.setBounds(285, 340, 120, 30);//dimensiones label contra
+
         txtContra = new JTextField("NO USAR POR AHORA!");//texto para contra
+        txtContra.setBounds(365, 340, 160, 30);//dimensiones texto para contra
+
         btnVolver = new JButton("Volver");//boton volver
-        btnIngresar = new JButton("Aseptar");//boton ingresar
-
-        //DIMENSIONES COMPONENTES
-        lblLogo.setBounds(270, 150, 320, 50);//dimensiones del label que contiene el nombre de la aplicacion
-        lblNombre.setBounds(285, 220, 120, 30);//dimensiones label nombre
-        lblContra.setBounds(285, 260, 120, 30);//dimensiones label contra
-        txtNombre.setBounds(365, 220, 160, 30);//dimensiones texto para nombre
-        txtContra.setBounds(365, 260, 160, 30);//dimensiones texto para contra
-        btnVolver.setBounds(275, 300, 120, 30);//dimensiones boton volver
-        btnIngresar.setBounds(415, 300, 120, 30);//dimensiones boton ingresar
-
-        //EDICION DE COMPONENTES
-        lblLogo.setFont(new Font("Arial", Font.BOLD,50));//edicion de las letras del nombre del logo
-        btnIngresar.setCursor(new Cursor(Cursor.HAND_CURSOR));//el cursor adaptara una forma de mano
+        btnVolver.setBounds(275, 390, 120, 30);//dimensiones boton volver
         btnVolver.setCursor(new Cursor(Cursor.HAND_CURSOR));//el cursor adaptara una forma de mano
+
+        btnIngresar = new JButton("Aceptar");//boton ingresar
+        btnIngresar.setBounds(415, 390, 120, 30);//dimensiones boton ingresar
+        btnIngresar.setCursor(new Cursor(Cursor.HAND_CURSOR));//el cursor adaptara una forma de mano    
 
         //FUNCIONES DE COMPONENTES
         btnVolver.addActionListener(e -> ventana.cambiarPanel("inicio"));//funsion: nos regresara al panel inicio
@@ -68,5 +84,7 @@ public class PanelIngresar extends JPanel{//clase PanelIngreso con extension a J
         add(txtContra);//agregamos texto cotra
         add(btnIngresar);//agregamos boton ingresar
         add(btnVolver);//agregamos boton volver
-    }
+        add(cortina);//agregamos la cortina al panel ingreso
+        cortina.add(lblMaster);//agregamos el icono master a la cortina
+        }
 }
